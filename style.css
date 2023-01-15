@@ -1,6 +1,4 @@
-/* font-family: 'Cinzel', serif;
-font-family: 'Montserrat Alternates', sans-serif;
-font-family: 'Unbounded', cursive; */
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
 
 html {
   box-sizing: border-box;
@@ -86,7 +84,14 @@ img {
 }
 
 .quote {
+  font-family: 'Architects Daughter', cursive;
   text-align: center;
+  font-size: 1.5em;
+}
+
+.author {
+  margin-top: 10px;
+  text-align: right;
 }
 
 .citate-picker {
@@ -103,6 +108,23 @@ img {
   -webkit-box-shadow: 0px 0px 62px -11px rgba(164, 190, 123, 1);
   -moz-box-shadow: 0px 0px 62px -11px rgba(164, 190, 123, 1);
   box-shadow: 0px 0px 62px -11px rgba(164, 190, 123, 1);
+}
+
+.quote::before {
+  content: url('/assets/svg/quote-left.svg');
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 15px;
+}
+
+.quote::after {
+  content: url('/assets/svg/quote-right.svg');
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  margin-top: 15px;
 }
 
 .button {
