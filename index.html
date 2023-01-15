@@ -9,9 +9,41 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat+Alternates:ital,wght@0,300;1,400&family=Unbounded:wght@300&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/assets/svg/quotes.svg" type="image/x-icon">
   <title>Quote App</title>
 </head>
 <body>
-  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium repudiandae repellat alias impedit enim quos ab sed nam accusamus, excepturi et sint perferendis quaerat animi voluptates quidem optio cupiditate nihil?</p>
+  <header class="header">
+    <div class="logo">
+      <img src="/assets/svg/bubble-with-quotation-marks.svg" alt="quotes">
+    </div>
+    <h1 class="logo-text">
+      Find your inspiration today
+    </h1>
+  </header>
+  <main class="citate">
+    <section class="citate-picker">
+      <div class="citate-picker__area"></div>
+      <div class="citate-picker__buttons">
+        <button class="button button_generate">Generate new</button>
+        <button class="button button_add">Add to the list</button>
+      </div>
+    </section>
+    <section class="citate-list">
+      <h3 class="citate-list__title">Your favourites</h3>
+      <ol class="citate-list__list list">
+        <li class="list__item">
+          <p class="item__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <button class="item__button button button_delete">
+            <img src="/assets/svg/bin.svg" alt="delete">
+          </button>
+        </li>
+      </ol>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer__github"></div>
+    <div class="footer__date"></div>
+  </footer>
 </body>
 </html>
