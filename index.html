@@ -1,49 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/node_modules/normalize.css/normalize.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat+Alternates:ital,wght@0,300;1,400&family=Unbounded:wght@300&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="/assets/svg/quotes.svg" type="image/x-icon">
-  <title>Quote App</title>
-</head>
-<body>
-  <header class="header">
-    <div class="logo">
-      <img src="/assets/svg/bubble-with-quotation-marks.svg" alt="quotes">
-    </div>
-    <h1 class="logo-text">
-      Find your inspiration today
-    </h1>
-  </header>
-  <main class="citate">
-    <section class="citate-picker">
-      <div class="citate-picker__area"></div>
-      <div class="citate-picker__buttons">
-        <button class="button button_generate">Generate new</button>
-        <button class="button button_add">Add to the list</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/node_modules/normalize.css/normalize.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat+Alternates:ital,wght@0,300;1,400&family=Unbounded:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="/assets/svg/quotes.svg"
+      type="image/x-icon"
+    />
+    <title>Quote App</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="/assets/svg/bubble-with-quotation-marks.svg" alt="quotes" />
       </div>
-    </section>
-    <section class="citate-list">
-      <h3 class="citate-list__title">Your favourites</h3>
-      <ol class="citate-list__list list">
-        <li class="list__item">
-          <p class="item__text">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-          <button class="item__button button button_delete">
-            <img src="/assets/svg/bin.svg" alt="delete">
-          </button>
-        </li>
-      </ol>
-    </section>
-  </main>
-  <footer class="footer">
-    <div class="footer__github"></div>
-    <div class="footer__date"></div>
-  </footer>
-</body>
+      <h1 class="logo-text">Find your inspiration today</h1>
+    </header>
+    <main class="citate">
+      <section class="citate-picker">
+        <div class="citate-picker__area">
+          <blockquote class="quote">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum sequi
+            cupiditate quia commodi sint laborum officiis laudantium dolores
+            quam amet blanditiis explicabo, unde, officia deleniti!
+          </blockquote>
+        </div>
+        <div class="citate-picker__buttons">
+          <button class="button button_generate">Generate new</button>
+          <button class="button button_add">Add to the list</button>
+        </div>
+      </section>
+      <section class="citate-list">
+        <h3 class="citate-list__title">Your favourites</h3>
+        <ul class="citate-list__list list">
+          <li class="list__item">
+            <p class="item__text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="item__button button button_delete">
+              <img src="/assets/svg/bin.svg" alt="delete" />
+            </button>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer__github">
+        <a href="https://github.com/plushRaccoon">
+          <img src="/assets/svg/github.svg" alt="github">
+        </a>
+      </div>
+      <div class="footer__date"><time datetime="2023">2023</time></div>
+    </footer>
+  </body>
 </html>
