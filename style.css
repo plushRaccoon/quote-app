@@ -150,11 +150,28 @@ img {
   gap: 10px;
 }
 
+.citate-list__list {
+  gap: 10px;
+}
+
 .list__item {
   display: flex;
   justify-content: space-around;
   align-items: center;
   font-size: 1.3em;
+  width: 80%;
+}
+
+.list__item::before {
+  content: '•';
+  color: #A4BE7B;
+  width: 20px;
+  font-size: 2.5em;
+  padding-bottom: 5px;
+}
+
+.item__text {
+  width: 90%;
 }
 
 .button_delete {
