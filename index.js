@@ -46,11 +46,6 @@ buttons.forEach((button) => {
 
     if (btn.classList.contains("button_add")) {
       let quoText = quote.innerHTML;
-      // if (quote.innerHTML.length > 70) {
-      //   quoText = quote.innerHTML.slice(0, 70) + '...';
-      // } else {
-      //   quoText = quote.innerHTML;
-      // }
       qouteItem = `
         <li class="list__item">
           <p class="item__text">
