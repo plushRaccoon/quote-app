@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
 
 html {
   box-sizing: border-box;
@@ -55,7 +55,7 @@ img {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 2em 0;  
+  margin: 2em 0;
 }
 
 .header {
@@ -70,7 +70,7 @@ img {
 .logo-text,
 .citate-list__title {
   font-family: "Unbounded", cursive;
-  color: #5F8D4E;
+  color: #5f8d4e;
 }
 
 .logo-text {
@@ -80,11 +80,13 @@ img {
 .citate {
   margin: 50px 0;
   width: 100%;
+  min-height: 100%;
+  padding-bottom: 50px;
   justify-content: center;
 }
 
 .quote {
-  font-family: 'Architects Daughter', cursive;
+  font-family: "Architects Daughter", cursive;
   text-align: center;
   font-size: 1.5em;
 }
@@ -102,7 +104,8 @@ img {
 
 .citate-picker__area {
   border-radius: 1em;
-  width: 80%;
+  max-width: 900px;
+  width: calc(100vw - 50%);
   padding: 3em;
   margin: 2em 0;
   -webkit-box-shadow: 0px 0px 62px -11px rgba(164, 190, 123, 1);
@@ -111,7 +114,7 @@ img {
 }
 
 .quote::before {
-  content: url('/assets/svg/quote-left.svg');
+  content: url("/assets/svg/quote-left.svg");
   display: block;
   width: 30px;
   height: 30px;
@@ -119,7 +122,7 @@ img {
 }
 
 .quote::after {
-  content: url('/assets/svg/quote-right.svg');
+  content: url("/assets/svg/quote-right.svg");
   display: block;
   width: 30px;
   height: 30px;
@@ -142,7 +145,7 @@ img {
 
 .button:hover {
   transform: scale(1.1);
-  color: #A4BE7B;
+  color: #a4be7b;
 }
 .citate-list {
   width: 100%;
@@ -168,8 +171,8 @@ img {
 }
 
 .list__item::before {
-  content: '•';
-  color: #A4BE7B;
+  content: "•";
+  color: #a4be7b;
   width: 20px;
   font-size: 2.5em;
   padding-bottom: 5px;
@@ -192,7 +195,38 @@ img {
   padding-top: 2px;
 }
 
+.footer {
+  height: 40px;
+  margin-top: -40px;
+}
+
 .footer__github {
   width: 60px;
   height: 100px;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 570px) {
+  body {
+    font-size: 10px;
+  }
+
+  /* .citate-picker__area {
+    width: 110%;
+  } */
+
+  .button_delete {
+    width: 40px;
+    height: 40px;
+  }
+
+  .button_delete img {
+    width: 1.3em;
+    height: 1.3em;
+  }
 }
