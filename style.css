@@ -147,6 +147,11 @@ img {
   transform: scale(1.1);
   color: #a4be7b;
 }
+
+.citate-picker__buttons {
+  display: flex;
+}
+
 .citate-list {
   width: 100%;
   padding: 0 20px;
@@ -206,19 +211,22 @@ img {
 }
 
 @media (max-width: 768px) {
+  
   body {
     font-size: 12px;
   }
+
 }
 
 @media (max-width: 570px) {
+  
   body {
     font-size: 10px;
   }
 
-  /* .citate-picker__area {
-    width: 110%;
-  } */
+  .citate {
+    margin: 20px 0;
+  }
 
   .button_delete {
     width: 40px;
@@ -229,4 +237,43 @@ img {
     width: 1.3em;
     height: 1.3em;
   }
+
+}
+
+@media (max-width: 500px) {
+  
+  .header {
+    justify-content: flex-start;
+    padding: 0 20px;
+    margin: 10px 0;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .citate-picker__area {
+    width: calc(100vw - 40%);
+    padding: 2em;
+    margin: 1em 0;
+  }
+
+  .citate-picker {
+    margin-bottom: 20px;
+  }
+
+  .quote::before,
+  .quote::after {
+    width: 20px;
+    height: 20px;
+  }
+
+  .citate-picker__buttons button {
+    font-size: smaller;
+  }
+
+  .citate-list__title {
+    font-size: 1.5em;
+  }
+
 }
