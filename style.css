@@ -114,7 +114,7 @@ img {
 }
 
 .quote::before {
-  content: url("/assets/svg/quote-left.svg");
+  content: url("assets/svg/quote-left.svg");
   display: block;
   width: 30px;
   height: 30px;
@@ -122,7 +122,7 @@ img {
 }
 
 .quote::after {
-  content: url("/assets/svg/quote-right.svg");
+  content: url("assets/svg/quote-right.svg");
   display: block;
   width: 30px;
   height: 30px;
