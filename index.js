@@ -52,7 +52,7 @@ buttons.forEach((button) => {
             ${quoText} ${author.innerHTML}
           </p>
           <button class="item__button button button_delete">
-            <img src="/assets/svg/bin.svg" alt="delete" />
+            <img src="assets/svg/bin.svg" alt="delete" />
           </button>
         </li>
       `;
