@@ -3,7 +3,8 @@
 const quote = document.querySelector(".quote"),
   author = document.querySelector(".author"),
   buttons = document.querySelectorAll(".button"),
-  quoList = document.querySelector(".citate-list__list");
+  quoList = document.querySelector(".citate-list__list"),
+  ID = document.querySelectorAll("[data-id]");
 
 let URL = "https://api.quotable.io/random";
 
@@ -22,6 +23,9 @@ function generateContent(func) {
     .then((data) => {
       quote.innerHTML = data.content;
       author.innerHTML = data.author;
+      quote.dataset.id = `${data._id}`;
+      author.dataset.id = `${data._id}`;
+      console.log(data);
     })
     .catch((error) => {
       console.error(error);
@@ -35,7 +39,7 @@ function addToList() {
   let quoText = quote.innerHTML;
   qouteItem = `
         <li class="list__item">
-          <p class="item__text">
+          <p class="item__text" data-id='${quote.dataset.id}'>
             ${quoText} ${author.innerHTML}
           </p>
           <button class="item__button button button_delete">
