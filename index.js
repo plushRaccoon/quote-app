@@ -3,9 +3,8 @@
 const quote = document.querySelector(".quote"),
   author = document.querySelector(".author"),
   buttons = document.querySelectorAll(".button"),
-  quoList = document.querySelector(".citate-list__list"),
-  ID = document.querySelectorAll("[data-id]");
-
+  quoList = document.querySelector(".citate-list__list");
+  // let db;
 let URL = "https://api.quotable.io/random";
 
 async function getQuote(url) {
@@ -25,7 +24,6 @@ function generateContent(func) {
       author.innerHTML = data.author;
       quote.dataset.id = `${data._id}`;
       author.dataset.id = `${data._id}`;
-      console.log(data);
     })
     .catch((error) => {
       console.error(error);
@@ -39,7 +37,7 @@ function addToList() {
   let quoText = quote.innerHTML;
   qouteItem = `
         <li class="list__item">
-          <p class="item__text" data-id='${quote.dataset.id}'>
+          <p class="item__text" data-quote-id='${quote.dataset.id}'>
             ${quoText} ${author.innerHTML}
           </p>
           <button class="item__button button button_delete">
@@ -48,6 +46,34 @@ function addToList() {
         </li>
       `;
   quoList.insertAdjacentHTML("beforeend", qouteItem);
+  let db;
+  let openDB = indexedDB.open("quotesDB", 2);
+
+      openDB.onerror = (e) => {
+        console.error(e);
+      };
+
+  openDB.onsuccess = (e) => {
+    
+        db = openDB.result;
+        addData(db, quote.dataset.id);
+        console.log("DB opened successfully");
+      };
+
+      openDB.onupgradeneeded = (e) => {
+        db = openDB.result;
+
+        db.onerror = (e) => {
+          console.log("Error in initializing DB");
+        };
+
+        if (!db.objectStoreNames.contains("quotes")) {
+          const quotesOS = db.createObjectStore("quotes", { keyPath: "id", autoIncrement: true });
+        }
+
+        console.log("Object store created.");
+      };
+
 }
 
 function deleteItem(del) {
@@ -57,6 +83,8 @@ function deleteItem(del) {
     });
   });
 }
+
+
 
 buttons.forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -74,3 +102,16 @@ buttons.forEach((button) => {
     }
   });
 });
+
+function addData(db, id) {
+  let item = [{ id, quote: quote.innerHTML, author: author.innerHTML }];
+  let tx = db.transaction(["quotes"], "readwrite");
+  let store = tx.objectStore("quotes");
+  console.log(id);
+  let req = store.put(item[0]);
+
+  req.onsuccess = () => {
+
+    console.log("we did it", req.result);
+  };
+}
