@@ -5,7 +5,6 @@ const quote = document.querySelector(".quote"),
   buttons = document.querySelectorAll(".button"),
   quoList = document.querySelector(".citate-list__list");
 
-
 let URL = "https://api.quotable.io/random";
 
 async function getQuote(url) {
@@ -18,35 +17,23 @@ async function getQuote(url) {
   return await response.json();
 }
 
-getQuote(URL)
-  .then((data) => {
-    quote.innerHTML = data.content;
-    author.innerHTML = data.author;
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+function generateContent(func) {
+  return func
+    .then((data) => {
+      quote.innerHTML = data.content;
+      author.innerHTML = data.author;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 
-buttons.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    let btn = e.target;
+generateContent(getQuote(URL));
 
-    if (btn.classList.contains("button_generate")) {
-      getQuote(URL)
-        .then((data) => {
-          quote.innerHTML = data.content;
-          author.innerHTML = data.author;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-
-    let qouteItem;
-
-    if (btn.classList.contains("button_add")) {
-      let quoText = quote.innerHTML;
-      qouteItem = `
+function addToList() {
+  let qouteItem;
+  let quoText = quote.innerHTML;
+  qouteItem = `
         <li class="list__item">
           <p class="item__text">
             ${quoText} ${author.innerHTML}
@@ -56,15 +43,30 @@ buttons.forEach((button) => {
           </button>
         </li>
       `;
-      quoList.insertAdjacentHTML("beforeend", qouteItem);
+  quoList.insertAdjacentHTML("beforeend", qouteItem);
+}
 
-      let btnsDel = document.querySelectorAll('.button_delete');
+function deleteItem(del) {
+  del.forEach((btnDel) => {
+    btnDel.addEventListener("click", () => {
+      btnDel.parentElement.remove();
+    });
+  });
+}
 
-      btnsDel.forEach(btnDel => {
-        btnDel.addEventListener('click', (e) => {
-          btnDel.parentElement.remove();
-        });
-      });
+buttons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    let btn = e.target;
+
+    if (btn.classList.contains("button_generate")) {
+      generateContent(getQuote(URL));
+    }
+
+    if (btn.classList.contains("button_add")) {
+      addToList();
+
+      let btnsDel = document.querySelectorAll(".button_delete");
+      deleteItem(btnsDel);
     }
   });
-  });
+});
