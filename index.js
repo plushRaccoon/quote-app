@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       if (!db.objectStoreNames.contains("quotes")) {
-        const quotesOS = db.createObjectStore("quotes", {
+        const quotesOS = db.createObjectStore("quotes", { keyPath: 'id',
           autoIncrement: true,
         });
       }
@@ -156,4 +156,5 @@ document.addEventListener("DOMContentLoaded", () => {
       parent.remove();
     };
   }
+
 });
