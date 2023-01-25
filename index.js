@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quoList = document.querySelector(".citate-list__list");
 
   let db;
-   openDB();
+  openDB();
   let URL = "https://api.quotable.io/random";
 
   async function getQuote(url) {
@@ -36,29 +36,26 @@ document.addEventListener("DOMContentLoaded", () => {
   generateContent(getQuote(URL));
 
   function renderList(data) {
-    quoList.innerHTML = '';
-    
+    quoList.innerHTML = "";
+
     let qouteItem;
-    data.forEach(item => {
-          qouteItem = `
+    data.forEach((item) => {
+      qouteItem = `
           <li class="list__item" data-quote-id='${item.id}'>
             <p class="item__text" data-quote-id='${item.id}'>
               ${item.quote} ${item.author}
             </p>
             <button class="item__button button button_delete" data-button-id='${item.id}'>
-              <img src="assets/svg/bin.svg" alt="delete" />
+              <img src="assets/svg/bin.svg" alt="delete" class="btn-img" data-button-id='${item.id}' />
             </button>
           </li>
         `;
-      
+
       quoList.insertAdjacentHTML("beforeend", qouteItem);
     });
   }
-  
 
-  function addToList() {
-
-  }
+  function addToList() {}
 
   function openDB() {
     let openDB = indexedDB.open("quotesDB", 2);
@@ -70,27 +67,22 @@ document.addEventListener("DOMContentLoaded", () => {
     openDB.onsuccess = (e) => {
       db = openDB.result;
       getDataFromStore();
-      
-      
+
       buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
           let btn = e.target;
-    
+
           if (btn.classList.contains("button_generate")) {
             generateContent(getQuote(URL));
           }
-    
+
           if (btn.classList.contains("button_add")) {
             addToDB();
             getDataFromStore();
-    
-            let btnsDel = quoList.querySelectorAll(".button_delete");
-            // console.log(btnsDel);
-            deleteItem(btn);
           }
         });
       });
-      
+
       console.log("DB opened successfully");
     };
 
@@ -111,18 +103,32 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function deleteItem(del) {
-    // del.forEach((btnDel) => {
-    //   btnDel.addEventListener("click", () => {
-        let tx = db.transaction(['quotes'], 'readwrite');
-        let store = tx.objectStore('quotes');
-        let req = store.delete(del.dataset.buttonId);
-        req.onsuccess = () => {
-          console.log('deleted');
-        };
-        del.parentElement.remove();
-    //   });
-    // });
+  function findLineToDelete(btns, list) {
+    btns.forEach((btn) =>
+      btn.addEventListener("click", (e) => {
+        let line = e.target;
+        if (
+          line.classList.contains("button_delete") ||
+          line.classList.contains("btn-img")
+        ) {
+          list.forEach((item) => {
+            if (+item.dataset.quoteId == +line.dataset.buttonId) {
+              deleteItem(line, item);
+            }
+          });
+        }
+      })
+    );
+  }
+
+  function deleteItem(del, parent) {
+    let tx = db.transaction(["quotes"], "readwrite");
+    let store = tx.objectStore("quotes");
+    let req = store.delete(+del.dataset.buttonId);
+    req.onsuccess = () => {
+      console.log("deleted");
+    };
+    parent.remove();
   }
 
   function addToDB() {
@@ -144,8 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     req.onsuccess = () => {
       renderList(req.result);
+      let btnsDel = document.querySelectorAll("[data-button-id]");
+      let listItem = document.querySelectorAll(".list__item");
+      findLineToDelete(btnsDel, listItem);
     };
   }
-
 });
-
