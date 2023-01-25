@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let db;
   openDB();
+
   let URL = "https://api.quotable.io/random";
 
   async function getQuote(url) {
@@ -34,28 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   generateContent(getQuote(URL));
-
-  function renderList(data) {
-    quoList.innerHTML = "";
-
-    let qouteItem;
-    data.forEach((item) => {
-      qouteItem = `
-          <li class="list__item" data-quote-id='${item.id}'>
-            <p class="item__text" data-quote-id='${item.id}'>
-              ${item.quote} ${item.author}
-            </p>
-            <button class="item__button button button_delete" data-button-id='${item.id}'>
-              <img src="assets/svg/bin.svg" alt="delete" class="btn-img" data-button-id='${item.id}' />
-            </button>
-          </li>
-        `;
-
-      quoList.insertAdjacentHTML("beforeend", qouteItem);
-    });
-  }
-
-  function addToList() {}
 
   function openDB() {
     let openDB = indexedDB.open("quotesDB", 2);
@@ -103,10 +82,57 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+  function addToDB() {
+    let item = [{ quote: quote.innerHTML, author: author.innerHTML }];
+    let tx = db.transaction(["quotes"], "readwrite");
+    let store = tx.objectStore("quotes");
+    let req = store.put(item[0]);
+
+    req.onsuccess = () => {
+      console.log("we did it");
+    };
+  }
+
+  function getDataFromStore() {
+    let tx = db.transaction(["quotes"], "readonly");
+    let store = tx.objectStore("quotes");
+
+    let req = store.getAll();
+
+    req.onsuccess = () => {
+      renderList(req.result);
+      console.log(req.result);
+      let btnsDel = document.querySelectorAll("[data-button-id]");
+      let listItem = document.querySelectorAll(".list__item");
+      findLineToDelete(btnsDel, listItem);
+    };
+  }
+
+  function renderList(data) {
+    quoList.innerHTML = "";
+
+    data.forEach((item) => {
+      console.log(item.id);
+      let qouteItem = `
+          <li class="list__item" data-quote-id='${item.id}'>
+            <p class="item__text" data-quote-id='${item.id}'>
+              ${item.quote} ${item.author}
+            </p>
+            <button class="item__button button button_delete" data-button-id='${item.id}'>
+              <img src="assets/svg/bin.svg" alt="delete" class="btn-img" data-button-id='${item.id}' />
+            </button>
+          </li>
+        `;
+
+      quoList.insertAdjacentHTML("beforeend", qouteItem);
+    });
+  }
+
   function findLineToDelete(btns, list) {
     btns.forEach((btn) =>
       btn.addEventListener("click", (e) => {
         let line = e.target;
+        console.log(line);
         if (
           line.classList.contains("button_delete") ||
           line.classList.contains("btn-img")
@@ -127,32 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let req = store.delete(+del.dataset.buttonId);
     req.onsuccess = () => {
       console.log("deleted");
-    };
-    parent.remove();
-  }
-
-  function addToDB() {
-    let item = [{ quote: quote.innerHTML, author: author.innerHTML }];
-    let tx = db.transaction(["quotes"], "readwrite");
-    let store = tx.objectStore("quotes");
-    let req = store.put(item[0]);
-
-    req.onsuccess = () => {
-      console.log("we did it");
-    };
-  }
-
-  function getDataFromStore() {
-    let tx = db.transaction(["quotes"], "readonly");
-    let store = tx.objectStore("quotes");
-
-    let req = store.getAll();
-
-    req.onsuccess = () => {
-      renderList(req.result);
-      let btnsDel = document.querySelectorAll("[data-button-id]");
-      let listItem = document.querySelectorAll(".list__item");
-      findLineToDelete(btnsDel, listItem);
+      parent.remove();
     };
   }
 });
