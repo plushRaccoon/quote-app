@@ -34,22 +34,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   generateContent(getQuote(URL));
-  // addToList();
 
-  function addToList(data) {
+  function renderList(data) {
+    quoList.innerHTML = '';
+    
+    let qouteItem;
     data.forEach(item => {
-      let qouteItem = `
-      <li class="list__item">
-        <p class="item__text" data-quote-id='${item.id}'>
-          ${item.quote} ${item.author}
-        </p>
-        <button class="item__button button button_delete" data-button-id='${item.id}'>
-          <img src="assets/svg/bin.svg" alt="delete" />
-        </button>
-      </li>
-    `;
-  quoList.insertAdjacentHTML("beforeend", qouteItem);
+          qouteItem = `
+          <li class="list__item" data-quote-id='${item.id}'>
+            <p class="item__text" data-quote-id='${item.id}'>
+              ${item.quote} ${item.author}
+            </p>
+            <button class="item__button button button_delete" data-button-id='${item.id}'>
+              <img src="assets/svg/bin.svg" alt="delete" />
+            </button>
+          </li>
+        `;
+      
+      quoList.insertAdjacentHTML("beforeend", qouteItem);
     });
+  }
+  
+
+  function addToList() {
+
   }
 
   function openDB() {
@@ -61,9 +69,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     openDB.onsuccess = (e) => {
       db = openDB.result;
-      
-      addData();
       getDataFromStore();
+      
+      
+      buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          let btn = e.target;
+    
+          if (btn.classList.contains("button_generate")) {
+            generateContent(getQuote(URL));
+          }
+    
+          if (btn.classList.contains("button_add")) {
+            addToDB();
+            getDataFromStore();
+    
+            let btnsDel = quoList.querySelectorAll(".button_delete");
+            // console.log(btnsDel);
+            deleteItem(btn);
+          }
+        });
+      });
+      
       console.log("DB opened successfully");
     };
 
@@ -98,31 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // });
   }
 
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      let btn = e.target;
-
-      if (btn.classList.contains("button_generate")) {
-        generateContent(getQuote(URL));
-      }
-
-      if (btn.classList.contains("button_add")) {
-       
-        
-
-        let btnsDel = quoList.querySelectorAll(".button_delete");
-        console.log(btnsDel);
-        deleteItem(btn);
-      }
-    });
-  });
-
-  function addData() {
+  function addToDB() {
     let item = [{ quote: quote.innerHTML, author: author.innerHTML }];
     let tx = db.transaction(["quotes"], "readwrite");
     let store = tx.objectStore("quotes");
-    // console.log(id);
     let req = store.put(item[0]);
 
     req.onsuccess = () => {
@@ -135,13 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let store = tx.objectStore("quotes");
 
     let req = store.getAll();
+
     req.onsuccess = () => {
-      console.log(req.result);
-      addToList(req.result);
+      renderList(req.result);
     };
   }
-
-  
 
 });
 
