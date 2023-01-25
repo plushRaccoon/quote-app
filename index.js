@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     openDB.onsuccess = (e) => {
       db = openDB.result;
-      getDataFromStore();
+      getDataFromStorage();
 
       buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           if (btn.classList.contains("button_add")) {
             addToDB();
-            getDataFromStore();
+            getDataFromStorage();
           }
         });
       });
@@ -73,7 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       if (!db.objectStoreNames.contains("quotes")) {
-        const quotesOS = db.createObjectStore("quotes", { keyPath: 'id',
+        const quotesOS = db.createObjectStore("quotes", {
+          keyPath: "id",
           autoIncrement: true,
         });
       }
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function getDataFromStore() {
+  function getDataFromStorage() {
     let tx = db.transaction(["quotes"], "readonly");
     let store = tx.objectStore("quotes");
 
@@ -156,5 +157,4 @@ document.addEventListener("DOMContentLoaded", () => {
       parent.remove();
     };
   }
-
 });
